@@ -6,8 +6,9 @@ Write-Host "OpenClaw Backup - Setup Wizard"
 Write-Host "=========================================="
 Write-Host ""
 
-$defaultBackupRoot = "Z:\backup\openclaw_backup"
-$defaultOldBackup = "Z:\backup\openclaw_backup_old"
+$hostname = $env:COMPUTERNAME
+$defaultBackupRoot = "Z:\backup\openclaw_backup\$hostname"
+$defaultOldBackup = "Z:\backup\openclaw_backup_old\$hostname"
 
 Write-Host "1. Set backup root directory"
 Write-Host "   Default: $defaultBackupRoot"

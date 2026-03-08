@@ -6,9 +6,10 @@ $configFile = Join-Path $scriptDir "config.ps1"
 if (Test-Path $configFile) {
     . $configFile
 } else {
-    # 默认配置
-    $backupRoot = "Z:\backup\openclaw_backup"
-    $oldBackupRoot = "Z:\backup\openclaw_backup_old"
+    # 默认配置（带主机名）
+    $hostname = $env:COMPUTERNAME
+    $backupRoot = "Z:\backup\openclaw_backup\$hostname"
+    $oldBackupRoot = "Z:\backup\openclaw_backup_old\$hostname"
     $openclawHome = "$env:USERPROFILE\.openclaw"
     $keepCount = 3
     $maxOldSizeGB = 10

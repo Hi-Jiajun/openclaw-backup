@@ -6,9 +6,10 @@ CONFIG_FILE="$SCRIPT_DIR/config.sh"
 if [ -f "$CONFIG_FILE" ]; then
     source "$CONFIG_FILE"
 else
-    # 默认配置
-    BACKUP_ROOT="$HOME/openclaw_backup"
-    OLD_BACKUP_ROOT="$HOME/openclaw_backup_old"
+    # 默认配置（带主机名）
+    HOSTNAME=$(hostname)
+    BACKUP_ROOT="$HOME/openclaw_backup/$HOSTNAME"
+    OLD_BACKUP_ROOT="$HOME/openclaw_backup_old/$HOSTNAME"
     OPENCLAW_HOME="$HOME/.openclaw"
     KEEP_COUNT=3
     MAX_OLD_SIZE_GB=10
