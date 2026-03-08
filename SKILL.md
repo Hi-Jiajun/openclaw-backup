@@ -21,16 +21,17 @@ description: |
 
 | 平台 | 脚本 |
 |------|------|
-| Windows | backup.ps1 |
-| Linux | backup.sh |
-| Mac | backup.sh |
+| Windows | scripts/backup.ps1 |
+| Linux | scripts/backup.sh |
+| Mac | scripts/backup.sh |
 
 ## 配置项
 
-使用前请根据需要修改脚本开头的配置：
+使用前请根据需要修改 scripts 目录下脚本开头的配置：
 
-### Windows (backup.ps1)
+### Windows
 ```powershell
+# scripts/backup.ps1
 $backupRoot = "Z:\backup\openclaw_backup"      # 备份根目录
 $oldBackupRoot = "Z:\backup\openclaw_backup_old"  # 旧备份目录
 $openclawHome = "$env:USERPROFILE\.openclaw"    # OpenClaw 主目录
@@ -39,8 +40,9 @@ $maxOldSizeGB = 10   # 旧备份超过此容量时清理
 $targetOldSizeGB = 5  # 清理后的目标容量
 ```
 
-### Linux/Mac (backup.sh)
+### Linux/Mac
 ```bash
+# scripts/backup.sh
 BACKUP_ROOT="/path/to/backup"        # 备份根目录
 OLD_BACKUP_ROOT="/path/to/backup_old" # 旧备份目录
 OPENCLAW_HOME="$HOME/.openclaw"       # OpenClaw 主目录
@@ -53,27 +55,21 @@ TARGET_OLD_SIZE_GB=5                  # 清理到5GB
 
 ### Windows
 ```powershell
-powershell -ExecutionPolicy Bypass -File "backup.ps1"
+powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
 ```
 
-### Linux
+### Linux / Mac
 ```bash
-chmod +x backup.sh
-./backup.sh
-```
-
-### Mac
-```bash
-chmod +x backup.sh
-./backup.sh
+chmod +x scripts/backup.sh
+./scripts/backup.sh
 ```
 
 ### 设置定时自动备份
 
-#### Linux/Mac (cron)
+使用 OpenClaw cron：
 ```bash
 # 每天凌晨3点执行
-0 3 * * * /path/to/backup.sh
+openclaw cron add --name "openclaw-backup" --schedule "0 3 * * *" --command "powershell -ExecutionPolicy Bypass -File C:\PATH\TO\scripts\backup.ps1"
 ```
 
 ## 备份内容
