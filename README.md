@@ -6,6 +6,16 @@
 
 ## 安装
 
+### Windows
+
+```powershell
+# 克隆到 OpenClaw skills 目录
+cd $env:USERPROFILE\.openclaw\skills
+git clone https://github.com/Hi-Jiajun/openclaw-backup.git
+```
+
+### Linux / Mac
+
 ```bash
 # 克隆到 OpenClaw skills 目录
 cd ~/.openclaw/skills
@@ -21,14 +31,40 @@ git clone https://github.com/Hi-Jiajun/openclaw-backup.git
 - 🧹 智能清理，自动转移和删除旧备份
 - 🌐 支持 Windows / Linux / Mac
 
-## 使用
+## 快速开始
+
+### Windows
 
 ```powershell
-# 首次配置
+# 首次配置（交互式向导）
 powershell -ExecutionPolicy Bypass -File "scripts/setup.ps1"
 
 # 执行备份
 powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
+```
+
+### Linux
+
+```bash
+# 首次配置（交互式向导）
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+# 执行备份
+chmod +x scripts/backup.sh
+./scripts/backup.sh
+```
+
+### Mac
+
+```bash
+# 首次配置（交互式向导）
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+# 执行备份
+chmod +x scripts/backup.sh
+./scripts/backup.sh
 ```
 
 详细说明请查看 [SKILL.md](SKILL.md)
