@@ -1,44 +1,40 @@
 # OpenClaw Backup
 
-OpenClaw 配置自动备份工具。
+> 自动备份 OpenClaw 配置，让数据永不丢失
 
-## 功能
+一个 OpenClaw skill，提供交互式配置向导，自动备份你的 OpenClaw 配置。
 
-- 自动备份 OpenClaw 本地配置文件
-- 保留最近 N 个备份版本
-- 旧备份自动转移和清理
-- 支持 Windows / Linux / Mac
+## 安装
 
-## 使用说明
-
-这是一个 OpenClaw skill，结构如下：
-
-```
-openclaw-backup/
-├── SKILL.md           # Skill 定义和使用说明
-├── README.md           # 本文件
-└── scripts/
-    ├── backup.ps1     # Windows 脚本
-    └── backup.sh      # Linux/Mac 脚本
+```bash
+# 克隆到 OpenClaw skills 目录
+cd ~/.openclaw/skills
+git clone https://github.com/Hi-Jiajun/openclaw-backup.git
 ```
 
-详细使用说明请查看 [SKILL.md](SKILL.md)
+或从 ClawHub 直接安装：https://clawhub.ai/skills/openclaw-backup
 
-## 快速开始
+## 特性
 
-### Windows
+- 🎯 交互式配置向导，5分钟快速上手
+- 🔄 自动备份，保留多个版本
+- 🧹 智能清理，自动转移和删除旧备份
+- 🌐 支持 Windows / Linux / Mac
+
+## 使用
 
 ```powershell
+# 首次配置
+powershell -ExecutionPolicy Bypass -File "scripts/setup.ps1"
+
+# 执行备份
 powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
 ```
 
-### Linux / Mac
+详细说明请查看 [SKILL.md](SKILL.md)
 
-```bash
-chmod +x scripts/backup.sh
-./scripts/backup.sh
-```
+## Star ⭐
 
-## GitHub
+如果对你有帮助，欢迎 Star！
 
 https://github.com/Hi-Jiajun/openclaw-backup
