@@ -75,11 +75,11 @@ chmod +x scripts/backup.sh
 
 ### 支付宝
 
-![支付宝收款码](https://share.fnnas.net/s/3dff1ad85631457d82)
+<img src="1772974731593.jpg" width="200" />
 
 ### 微信
 
-![微信收款码](https://share.fnnas.net/s/b7ec52abe6474bec99)
+<img src="mm_facetoface_collect_qrcode_1772974720410.png" width="200" />
 
 ---
 
