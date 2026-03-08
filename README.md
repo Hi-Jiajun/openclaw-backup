@@ -11,6 +11,17 @@ OpenClaw 配置自动备份工具。
 
 ## 使用说明
 
+这是一个 OpenClaw skill，结构如下：
+
+```
+openclaw-backup/
+├── SKILL.md           # Skill 定义和使用说明
+├── README.md           # 本文件
+└── scripts/
+    ├── backup.ps1     # Windows 脚本
+    └── backup.sh      # Linux/Mac 脚本
+```
+
 详细使用说明请查看 [SKILL.md](SKILL.md)
 
 ## 快速开始
@@ -18,14 +29,14 @@ OpenClaw 配置自动备份工具。
 ### Windows
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "backup.ps1"
+powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
 ```
 
 ### Linux / Mac
 
 ```bash
-chmod +x backup.sh
-./backup.sh
+chmod +x scripts/backup.sh
+./scripts/backup.sh
 ```
 
 ## GitHub
