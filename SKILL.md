@@ -25,52 +25,32 @@ description: |
 | Linux | scripts/backup.sh |
 | Mac | scripts/backup.sh |
 
-## 配置项
+## 快速开始
 
-使用前请根据需要修改 scripts 目录下脚本开头的配置：
+### 方式一：交互式配置（推荐首次使用）
 
-### Windows
+首次使用时，运行交互式配置向导来设置路径：
+
+#### Windows
 ```powershell
-# scripts/backup.ps1
-$backupRoot = "Z:\backup\openclaw_backup"      # 备份根目录
-$oldBackupRoot = "Z:\backup\openclaw_backup_old"  # 旧备份目录
-$openclawHome = "$env:USERPROFILE\.openclaw"    # OpenClaw 主目录
-$keepCount = 3        # 主备份保留数量
-$maxOldSizeGB = 10   # 旧备份超过此容量时清理
-$targetOldSizeGB = 5  # 清理后的目标容量
+powershell -ExecutionPolicy Bypass -File "scripts/setup.ps1"
 ```
 
-### Linux/Mac
+#### Linux / Mac
 ```bash
-# scripts/backup.sh
-BACKUP_ROOT="/path/to/backup"        # 备份根目录
-OLD_BACKUP_ROOT="/path/to/backup_old" # 旧备份目录
-OPENCLAW_HOME="$HOME/.openclaw"       # OpenClaw 主目录
-KEEP_COUNT=3                          # 保留最新3个
-MAX_OLD_SIZE_GB=10                    # 超过10GB清理
-TARGET_OLD_SIZE_GB=5                  # 清理到5GB
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
-## 使用方法
+交互式配置会引导你设置：
+- 备份根目录
+- 旧备份目录
+- 保留备份数量
+- 容量限制
 
-### Windows
-```powershell
-powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
-```
+### 方式二：手动配置
 
-### Linux / Mac
-```bash
-chmod +x scripts/backup.sh
-./scripts/backup.sh
-```
-
-### 设置定时自动备份
-
-使用 OpenClaw cron：
-```bash
-# 每天凌晨3点执行
-openclaw cron add --name "openclaw-backup" --schedule "0 3 * * *" --command "powershell -ExecutionPolicy Bypass -File C:\PATH\TO\scripts\backup.ps1"
-```
+如果熟悉配置，也可以直接修改脚本开头或创建 config 文件。
 
 ## 备份内容
 
@@ -96,5 +76,5 @@ openclaw cron add --name "openclaw-backup" --schedule "0 3 * * *" --command "pow
 ## 注意事项
 
 1. **credentials/ 包含敏感信息** - 妥善保管备份
-2. 首次使用请务必修改配置中的路径
+2. 首次使用建议运行交互式配置
 3. 建议设置自动备份任务防止数据丢失
