@@ -1,84 +1,32 @@
 ---
 name: openclaw-backup
 description: |
-  自动备份 OpenClaw 本地存储配置文件。支持 Windows/Linux/Mac。
+  自动备份 OpenClaw 配置文件。自建 skills 单独备份。
   使用场景：(1) 定期备份配置 (2) 迁移配置 (3) 恢复配置
-  
-  这是一个 OpenClaw 备份工具 skill，提供交互式配置向导。
 ---
 
-# OpenClaw Backup Skill
+# OpenClaw 备份技能
 
-> 自动备份 OpenClaw 配置，让数据永不丢失
+自动备份 OpenClaw 的所有配置文件到本地存储。
 
-## 功能
+## 备份位置
 
-- ✅ 交互式配置向导
-- ✅ 每日自动备份（可配置时间）
-- ✅ 保留最近 N 个备份
-- ✅ 旧备份自动转移和清理
-- ✅ 按容量自动清理旧备份
-- ✅ 支持 Windows / Linux / Mac
-
-## 支持平台
-
-| 平台 | 脚本 |
+| 类型 | 路径 |
 |------|------|
-| Windows | scripts/backup.ps1 |
-| Linux | scripts/backup.sh |
-| Mac | scripts/backup.sh |
+| 主备份 | `Z:\backup\openclaw_backup\{hostname}\{日期}\` |
+| 自建 skills | `Z:\backup\openclaw_backup\custom-skills\{日期}\` |
+| 旧备份 | `Z:\backup\openclaw_backup_old\{hostname or custom-skills}\{日期}\` |
 
-## 安装方式
+## 自动备份（每日凌晨3点）
 
-### Windows
+已设置定时任务自动执行：
+- 备份时间：每天凌晨 3:00
+- 保留最近 3 个备份
 
+### 手动执行备份
 ```powershell
-# 克隆到 OpenClaw skills 目录
-cd $env:USERPROFILE\.openclaw\skills
-git clone https://github.com/Hi-Jiajun/openclaw-backup.git
+powershell -ExecutionPolicy Bypass -File "C:\Users\hiliang\.openclaw\workspace\skills\openclaw-backup\backup.ps1"
 ```
-
-### Linux / Mac
-
-```bash
-# 克隆到你的 OpenClaw skills 目录
-cd ~/.openclaw/skills
-git clone https://github.com/Hi-Jiajun/openclaw-backup.git
-```
-
-## 快速开始
-
-### Windows
-
-```powershell
-# 首次配置（交互式向导）
-powershell -ExecutionPolicy Bypass -File "scripts/setup.ps1"
-
-# 执行备份
-powershell -ExecutionPolicy Bypass -File "scripts/backup.ps1"
-```
-
-### Linux / Mac
-
-```bash
-# 首次配置（交互式向导）
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-
-# 执行备份
-chmod +x scripts/backup.sh
-./scripts/backup.sh
-```
-
-## 配置文件说明
-
-### setup.ps1 / setup.sh 会生成配置文件
-
-首次运行 setup.ps1 或 setup.sh 会创建配置文件，保存你的配置。
-
-### backup.ps1 / backup.sh 会自动加载配置
-
-脚本会自动读取配置文件，无需手动修改。
 
 ## 备份内容
 
@@ -91,9 +39,46 @@ chmod +x scripts/backup.sh
 | devices/ | 配对设备 |
 | identity/ | 身份配置 |
 | skills/ | 全局技能 |
+| workspace/ | 工作区（含自定义技能） |
+
+## 自建 Skills 备份
+
+自建 skills 单独备份到 `custom-skills` 目录：
+
+```
+custom-skills\
+└── 2026-03-09_15-51-08\
+    ├── mweb-automation\
+    ├── mweb-download\
+    ├── mweb-get-task\
+    ├── mweb-publish\
+    ├── mweb-seed\
+    ├── openclaw-backup\
+    └── openclaw-skills-github-sync\
+```
+
+## 备份规则
+
+- **主备份**：保留最新 3 个
+- **自建 skills**：保留最新 3 个
+- **旧备份**：移到 `openclaw_backup_old` 目录
+
+## 恢复指南
+
+详见备份目录中的 `RESTORE.md`
+
+### 恢复全部
+```powershell
+# 停止 OpenClaw Gateway
+Copy-Item "Z:\backup\openclaw_backup\{hostname}\{日期}\*" "$env:USERPROFILE\.openclaw\" -Recurse
+```
+
+### 仅恢复自建 skills
+```powershell
+Copy-Item "Z:\backup\openclaw_backup\custom-skills\{日期}\*" "$env:USERPROFILE\.openclaw\workspace\skills\" -Recurse
+```
 
 ## 注意事项
 
-1. credentials/ 包含敏感信息 - 妥善保管备份
-2. 首次使用建议运行交互式配置
-3. 建议设置自动备份任务防止数据丢失
+1. **credentials/ 包含敏感信息** - 妥善保管备份，不要公开分享
+2. **定时备份每天凌晨3点自动执行** - 无需手动操作
